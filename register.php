@@ -26,7 +26,6 @@ if($user) {
 
 $sql = 'INSERT INTO users (username, email, password) VALUES (:username, :email, :password)';
 $statement = $pdo->prepare($sql);
-
 //password hash
 $_POST['password'] = md5($_POST['password']);
 $result = $statement->execute($_POST);
