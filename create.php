@@ -6,6 +6,7 @@ if(!isset($_SESSION['user_id'])) {
     exit;
 }
 
+
 // Получение данных из $_POST и $_FILES
 $title = $_POST['title'];
 $description = $_POST['description'];
