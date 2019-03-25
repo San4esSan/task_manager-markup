@@ -1,3 +1,22 @@
+<?php
+session_start();
+//var_dump($_SESSION);
+// если пользователь не авторизован перекидываем его на login-form.php (авторизацию)
+if(!isset($_SESSION['user_id'])) {
+    header('Location: login-form.php');
+    exit;
+}
+
+// Подготовка и выполнение запроса к Базе данных
+$pdo = new PDO('mysql:host=localhost;dbname=task-manager', 'root', '');
+$sql = 'SELECT * from tasks where user_id=:user_id';
+$statement = $pdo->prepare($sql);
+$statement->execute([
+    ':user_id' =>  $_SESSION['user_id']
+]);
+$tasks = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+?>
 
 <!doctype html>
 <html lang="en">
@@ -22,9 +41,9 @@
               <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
             </div>
             <div class="col-sm-4 offset-md-1 py-4">
-              <h4 class="text-white">john@example.com</h4>
+              <h4 class="text-white"><?php echo $_SESSION['email']?></h4>
               <ul class="list-unstyled">
-                <li><a href="#" class="text-white">Выйти</a></li>
+                <li><a href="logout.php" class="text-white">Выйти</a></li>
               </ul>
             </div>
           </div>
@@ -50,7 +69,7 @@
           <h1 class="jumbotron-heading">Проект Task-manager</h1>
           <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
           <p>
-            <a href="#" class="btn btn-primary my-2">Добавить запись</a>
+            <a href="create-form.php" class="btn btn-primary my-2">Добавить запись</a>
           </p>
         </div>
       </section>
@@ -59,21 +78,23 @@
         <div class="container">
 
           <div class="row">
-             <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" src="assets/img/no-image.jpg">
-                <div class="card-body">
-                  <p class="card-text">Lorem ipsum</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <a href="#" class="btn btn-sm btn-outline-secondary">Подробнее</a>
-                      <a href="#" class="btn btn-sm btn-outline-secondary">Изменить</a>
-                      <a href="#" class="btn btn-sm btn-outline-secondary" onclick="confirm('are you sure?')">Удалить</a>
-                    </div>
+              <?php foreach($tasks as $task):?>
+                  <div class="col-md-4">
+                      <div class="card mb-4 shadow-sm">
+                          <img class="card-img-top" src="/uploads/<?php echo $task['image'];?>">
+                          <div class="card-body">
+                              <p class="card-text"><?php echo $task['title'];?></p>
+                              <div class="d-flex justify-content-between align-items-center">
+                                  <div class="btn-group">
+                                      <a href="show.php?id=<?php echo $task['id'];?>" class="btn btn-sm btn-outline-secondary">Подробнее</a>
+                                      <a href="edit-form.php?id=<?php echo $task['id'];?>" class="btn btn-sm btn-outline-secondary">Изменить</a>
+                                      <a href="delete.php?id=<?php echo $task['id'];?>" class="btn btn-sm btn-outline-secondary" onclick="confirm('Действительно удалить?')">Удалить</a>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
                   </div>
-                </div>
-              </div>
-            </div>
+              <?php endforeach;?>
             <!--<div class="col-md-4">
               <div class="card mb-4 shadow-sm">
                 <img class="card-img-top" src="assets/img/no-image.jpg">

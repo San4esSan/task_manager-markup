@@ -17,13 +17,13 @@
 
   <body>
     <div class="container text-center mt-5">
-      <?php if(isset($errorMessage)):?>
+      <?php if(isset($errorMessage)):?> <!-- если переменная $errorMessage существует то вывести ее-->
         <p><?php echo $errorMessage;?></p>
-      <?php else: ?>
+      <?php else: ?>   <!--иначе вывести сообщение-->
         <p>Заполните все поля.</p>
       <?php endif;?>
 
-      <a href="<?php echo $_SERVER['HTTP_REFERER']; ?>">Назад</a>
+      <a href="<?php echo $_SERVER['HTTP_REFERER']; ?>">Назад</a>  <!--вернуться на страницу с которой пришли-->
     </div>
   </body>
 </html>

@@ -1,3 +1,10 @@
+<?php
+session_start();
+// если пользователь не авторизован перекидываем его на login-form.php (авторизацию)
+if(!isset($_SESSION['user_id'])) {
+    header('Location: login-form.php');
+}
+?>
 
 <!doctype html>
 <html lang="en">
@@ -27,7 +34,7 @@
         <label for="inputPassword" class="sr-only">Пароль</label>
         <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" name="password">
         <button class="btn btn-lg btn-primary btn-block" type="submit">Зарегистрироваться</button>
-        <a href="#">Войти</a>
+        <a href="login-form.php">Войти</a>
         <p class="mt-5 mb-3 text-muted">&copy; 2018-2019</p>
       </form>
     </div>
