@@ -1,11 +1,10 @@
 <?php
 session_start();
-// если пользователь не авторизован перекидываем его на login-form.php (авторизацию)
+// Если пользователь не авторизован перекидываем его на login-form.php (авторизацию)
 if(!isset($_SESSION['user_id'])) {
     header('Location: login-form.php');
     exit;
 }
-
 
 // Получение данных из $_POST и $_FILES
 $title = $_POST['title'];
@@ -21,6 +20,7 @@ foreach($_POST as $input) { // перебераем $_POST и записывае
         exit;
     }
 }
+
 // Картинка не загружена
 if($image['error'] === 4) {
     $errorMessage = 'Загрузите картинку';
