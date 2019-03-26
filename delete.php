@@ -1,12 +1,4 @@
 <?php
-//пропускаем только авторизованного пользователя
-session_start();
-
-if(!isset($_SESSION['user_id'])) {
-    header('Location: /login-form.php');
-    exit;
-}
-
 //получение id записи
 $id = $_GET['id'];
 
