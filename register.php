@@ -36,6 +36,6 @@ if(!$result) {
     exit;
 }
 
-//переадресация на авторизацию(login-form.php)
+// Переадресация на авторизацию(login-form.php)
 header('Location: login-form.php');
 exit;

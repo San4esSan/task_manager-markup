@@ -1,11 +1,3 @@
-<?php
-session_start();
-// если пользователь не авторизован перекидываем его на login-form.php (авторизацию)
-if(!isset($_SESSION['user_id'])) {
-    header('Location: login-form.php');
-}
-?>
-
 <!doctype html>
 <html lang="en">
   <head>

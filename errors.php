@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -19,7 +18,7 @@
     <div class="container text-center mt-5">
       <?php if(isset($errorMessage)):?> <!-- если переменная $errorMessage существует то вывести ее-->
         <p><?php echo $errorMessage;?></p>
-      <?php else: ?>   <!--иначе вывести сообщение-->
+      <?php else: ?>   <!--иначе вывести сообщение "Заполните поля"-->
         <p>Заполните все поля.</p>
       <?php endif;?>
 
