@@ -3,7 +3,6 @@
 $email = $_POST['email'];
 $password = $_POST['password'];
 
-
 // Проверка данных на пустату
 foreach($_POST as $input) { // перебераем $_POST и записываем в переменную $input
     if(empty($input)) { // если переменная $input пуста
@@ -30,7 +29,6 @@ if(!$user) {
 session_start();
 $_SESSION['user_id'] = $user['id'];
 $_SESSION['email'] = $user['email'];
-
 
 // Переадресация на главную
 header('Location: index.php');
