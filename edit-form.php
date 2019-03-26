@@ -1,11 +1,4 @@
 <?php
-session_start();
-// если пользователь не авторизован перекидываем его на login-form.php (авторизацию)
-if(!isset($_SESSION['user_id'])) {
-    header('Location: login-form.php');
-    exit;
-}
-
 // Получение id записи
 $id = $_GET['id'];
 
@@ -21,18 +14,12 @@ $task = $statement->fetch(PDO::FETCH_ASSOC);
 <html lang="en">
   <head>
     <meta charset="utf-8">
-
     <title>Edit Task</title>
-
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
-    
-    <style>
-      
-    </style>
-  </head>
 
+  </head>
   <body>
     <div class="form-wrapper text-center">
       <form class="form-signin" method="post" enctype="multipart/form-data" action="edit.php?id=<?php echo $task['id'];?>">
@@ -43,7 +30,7 @@ $task = $statement->fetch(PDO::FETCH_ASSOC);
         <label for="inputEmail" class="sr-only">Описание</label>
         <textarea name="description" class="form-control" cols="30" rows="10" placeholder="Описание"><?php echo $task['description'];?></textarea>
         <input type="file">
-        <img src="/uploads/<?php echo $task['image'];?>" alt="" width="300" class="mb-3">
+        <img src="uploads/<?php echo $task['image'];?>" alt="" width="300" class="mb-3">
         <button class="btn btn-lg btn-success btn-block" type="submit">Редактировать</button>
         <p class="mt-5 mb-3 text-muted">&copy; 2018-2019</p>
       </form>

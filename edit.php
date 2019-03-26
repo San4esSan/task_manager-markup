@@ -1,12 +1,4 @@
 <?php
-// Пропускаем только автоизованного пользователя
-session_start();
-// если пользователь не авторизован перекидываем его на login-form.php (авторизацию)
-if(!isset($_SESSION['user_id'])) {
-    header('Location: login-form.php');
-    exit;
-}
-
 // Получение данных из $_POST и $_FILES
 $title = $_POST['title'];
 $description = $_POST['description'];
