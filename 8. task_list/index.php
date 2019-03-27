@@ -1,4 +1,11 @@
 <?php
+session_start();
+//var_dump($_SESSION);
+// Если пользователь не авторизован перекидываем его на login-form.php (авторизацию)
+if(!isset($_SESSION['user_id'])) {
+    header('Location: login-form.php');
+    exit;
+}
 // Подготовка и выполнение запроса к Базе данных
 $pdo = new PDO('mysql:host=localhost;dbname=task-manager', 'root', '');
 $sql = 'SELECT * from tasks where user_id=:user_id';
