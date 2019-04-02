@@ -18,7 +18,7 @@ $task = $statement->fetch(PDO::FETCH_ASSOC);
 
 // Удаляем текущую картинку если существует
 if(file_exists('uploads/' . $task['image'])) {
-    unlink('uploads/' . $task[$sql]);
+    unlink('uploads/' . $task['image']);
 }
 
 // Подготока и выполнение запроса к БД

@@ -40,7 +40,7 @@ if(file_exists('uploads/' . $task['image'])) {
 }
 
 // Загрузка картинки в папку uploads
-move_uploaded_file($image['name'], 'uploads/' . $image['name']);
+move_uploaded_file($image['tmp_name'], 'uploads/' . $image['name']);
 
 // Подготовка и выполнение запроса к базе данных
 $sql = "UPDATE tasks SET title=:title, description=:description, image=:image WHERE id=:id";

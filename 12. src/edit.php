@@ -20,13 +20,6 @@ foreach($_POST as $input) { // перебераем $_POST и записывае
     }
 }
 
-// Картинка не загружена
-if($image['error'] === 4) {
-    $errorMessage = 'Загрузите картинку';
-    include 'errors.php';
-    exit;
-}
-
 // Подготовка и выполнение запроса к базе данных
 $pdo = new PDO('mysql:host=localhost;dbname=task-manager', 'root', '');
 $sql = 'SELECT * from tasks where id=:id';
@@ -34,13 +27,22 @@ $statement = $pdo->prepare($sql);
 $statement->execute([':id' => $id]);
 $task = $statement->fetch(PDO::FETCH_ASSOC);
 
+
+
+// Картинка не загружена
+if($image['error'] === 4) {
+    $errorMessage = 'Загрузите картинку';
+    include 'errors.php';
+    exit;
+}
+
+// Загрузка картинки в папку uploads
+move_uploaded_file($image['tmp_name'], 'uploads/' . $image['name']);
+
 // Удаляем текушую картинку если существует
 if(file_exists('uploads/' . $task['image'])) {
     unlink('uploads/' . $task['image']);
 }
-
-// Загрузка картинки в папку uploads
-move_uploaded_file($image['name'], 'uploads/' . $image['name']);
 
 // Подготовка и выполнение запроса к базе данных
 $sql = "UPDATE tasks SET title=:title, description=:description, image=:image WHERE id=:id";
